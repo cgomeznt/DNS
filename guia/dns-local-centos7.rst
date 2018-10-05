@@ -47,7 +47,7 @@ Ahora que tenemos nuestra lista de clientes DNS confiables, editar el bloque de 
 	[...]
 
 
-Cambie la directiva de transferencia permitida de "none" a la dirección IP privada del ns2. Además, cambie la directiva allow-query de "localhost" a "trusted":
+Cambie la directiva de transferencia permitida de "none" a la dirección IP privada del ns2. Además, cambie la directiva allow-query de "localhost" a "trusted"::
 
 		allow-transfer { 192.168.0.21; };      	# disable zone transfers by default
 		allow-query { trusted; };  		# allows queries from "trusted" clients
