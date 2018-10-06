@@ -137,9 +137,9 @@ Ahora en el server ns1 vamos a configurar el archivo /etc/named/named.conf.local
 
 	# vi /etc/named/named.conf.local
 
-	zone "rapidpago.local" {
+	zone "dominio.local" {
 	    type master;
-	    file "/etc/named/zones/db.rapidpago.local"; # zone file path
+	    file "/etc/named/zones/db.dominio.local"; # zone file path
 	};
 
 	zone "168.192.in-addr.arpa" {
@@ -152,14 +152,14 @@ Creamos la Forward Zone File
 ++++++++++++++++++++++++++++
 
 
-El archivo de zona de reenvío es donde definimos los registros de DNS para las búsquedas de DNS hacia adelante. Es decir, cuando el DNS recibe una consulta de nombre, "host1.rapidpago.local" por ejemplo, buscará en el archivo de la zona hacia adelante para resolver la dirección IP privada correspondiente del host1.::
+El archivo de zona de reenvío es donde definimos los registros de DNS para las búsquedas de DNS hacia adelante. Es decir, cuando el DNS recibe una consulta de nombre, "host1.dominio.local" por ejemplo, buscará en el archivo de la zona hacia adelante para resolver la dirección IP privada correspondiente del host1.::
 
 	# mkdir  /etc/named/zones
 
 
-	# vi /etc/named/zones/db.rapidpago.local
+	# vi /etc/named/zones/db.dominio.local
 
-	@       IN      SOA     ns1.rapidpago.local. admin.rapidpago.local. (
+	@       IN      SOA     ns1.dominio.local. admin.dominio.local. (
 		      21         ; Serial
 		     604800     ; Refresh
 		      86400     ; Retry
@@ -167,27 +167,27 @@ El archivo de zona de reenvío es donde definimos los registros de DNS para las 
 		     604800 )   ; Negative Cache TTL
 
 	; name servers - NS records
-	    IN      NS      ns1.rapidpago.local.
-	    IN      NS      ns2.rapidpago.local.
+	    IN      NS      ns1.dominio.local.
+	    IN      NS      ns2.dominio.local.
 
 	; name servers - A records
-	ns1.rapidpago.local.          IN      A       192.168.1.210
-	ns2.rapidpago.local.          IN      A       192.168.0.21
+	ns1.dominio.local.          IN      A       192.168.1.210
+	ns2.dominio.local.          IN      A       192.168.0.21
 
 	; 192.168.1.0/24 192.168.1.0/24 - A records
-	ldapsrv1.rapidpago.local.          IN      A       192.168.1.210
-	srvscmutils.rapidpago.local.          IN      A       192.168.0.21
-	scmdebian.rapidpago.local.          IN      A       192.168.1.66
-	srvscm02.rapidpago.local.        IN      A      192.168.1.54
-	srvscm03.rapidpago.local.        IN      A      192.168.1.11
-	srvscm04.rapidpago.local.        IN      A      192.168.0.4
+	ldapsrv1.dominio.local.          IN      A       192.168.1.210
+	srvscmutils.dominio.local.          IN      A       192.168.0.21
+	scmdebian.dominio.local.          IN      A       192.168.1.66
+	srvscm02.dominio.local.        IN      A      192.168.1.54
+	srvscm03.dominio.local.        IN      A      192.168.1.11
+	srvscm04.dominio.local.        IN      A      192.168.0.4
 
 
 
 Crear la  Reverse Zone File(s)
 ++++++++++++++++++++++++++++++
 
-El archivo de zona inversa es donde definimos registros PTR de DNS para búsquedas DNS inversas. Es decir, cuando el DNS recibe una consulta por la dirección IP, "192.168.1.66" por ejemplo, buscará en el (los) archivo(s) de zona inversa para resolver el FQDN correspondiente, "host1.rapidpago.local" en este caso .
+El archivo de zona inversa es donde definimos registros PTR de DNS para búsquedas DNS inversas. Es decir, cuando el DNS recibe una consulta por la dirección IP, "192.168.1.66" por ejemplo, buscará en el (los) archivo(s) de zona inversa para resolver el FQDN correspondiente, "host1.dominio.local" en este caso .
 
 En ns1, para cada zona inversa especificada en el archivo named.conf.local, cree un archivo de zona inversa.
 
@@ -196,7 +196,7 @@ Edite el archivo de zona inversa que corresponde a la(s) zona(s) inversa(s) defi
 	# vi /etc/named/zones/db.168.192
 
 
-	@       IN      SOA     ns1.rapidpago.local. admin.rapidpago.local. ( 
+	@       IN      SOA     ns1.dominio.local. admin.dominio.local. ( 
 		                      3         ; Serial
 		                 604800         ; Refresh
 		                  86400         ; Retry
@@ -204,17 +204,17 @@ Edite el archivo de zona inversa que corresponde a la(s) zona(s) inversa(s) defi
 		                 604800 )       ; Negative Cache TTL
 
 	; name servers - NS records
-	      IN      NS      ns1.rapidpago.local.
-	      IN      NS      ns2.rapidpago.local.
+	      IN      NS      ns1.dominio.local.
+	      IN      NS      ns2.dominio.local.
 
 	; PTR Records
-	210.1   IN      PTR     ns1.rapidpago.local.    ; 192.168.1.210
-	21.0   IN      PTR     ns2.rapidpago.local.    ; 192.168.0.21
-	210.1   IN      PTR     ldapsrv1.rapidpago.local. ; 192.168.1.210
-	21.0    IN      PTR     srvscmutils.rapidpago.local. ; 192.168.0.21
-	54.1    IN      PTR     srvscm02.rapidpago.local. ; 192.168.1.54
-	11.1    IN      PTR     srvscm03.rapidpago.local. ; 192.168.1.11
-	4.0     IN      PTR     srvscm04.rapidpago.local. ; 192.168.0.4
+	210.1   IN      PTR     ns1.dominio.local.    ; 192.168.1.210
+	21.0   IN      PTR     ns2.dominio.local.    ; 192.168.0.21
+	210.1   IN      PTR     ldapsrv1.dominio.local. ; 192.168.1.210
+	21.0    IN      PTR     srvscmutils.dominio.local. ; 192.168.0.21
+	54.1    IN      PTR     srvscm02.dominio.local. ; 192.168.1.54
+	11.1    IN      PTR     srvscm03.dominio.local. ; 192.168.1.11
+	4.0     IN      PTR     srvscm04.dominio.local. ; 192.168.0.4
 
 
 Chequeamos de BIND Configuration Syntax
@@ -228,9 +228,9 @@ Ejecute el siguiente comando para verificar la sintaxis de los archivos named.co
 
 El comando named-checkzone se puede usar para verificar la corrección de sus archivos de zona. Su primer argumento especifica un nombre de zona y el segundo argumento especifica el archivo de zona correspondiente, ambos definidos en named.conf.local.::
 
-	# named-checkzone rapidpago.local /etc/named/zones/db.rapidpago.local 
-	/etc/named/zones/db.rapidpago.local:1: no TTL specified; using SOA MINTTL instead
-	zone rapidpago.local/IN: loaded serial 21
+	# named-checkzone dominio.local /etc/named/zones/db.dominio.local 
+	/etc/named/zones/db.dominio.local:1: no TTL specified; using SOA MINTTL instead
+	zone dominio.local/IN: loaded serial 21
 	OK
 
 Verificamos tambien la zona inversa.::
@@ -367,9 +367,9 @@ Ahora en el server ns2 vamos a configurar el archivo /etc/named/named.conf.local
 
 	# vi /etc/named/named.conf.local
 
-	zone "rapidpago.local" {
+	zone "dominio.local" {
 	    type slave;
-	    file "/etc/named/zones/db.rapidpago.local"; # zone file path
+	    file "/etc/named/zones/db.dominio.local"; # zone file path
 	    masters { 192.168.1.210; };  # ns1 private IP
 	};
 
@@ -413,7 +413,7 @@ Antes de que todos sus servidores en la ACL "trusted" puedan consultar sus servi
 
 	# vi /etc/resolv.conf
 
-	search rapidpago.local
+	search dominio.local
 	nameserver 192.168.1.210
 	nameserver 192.168.0.21
 
@@ -438,7 +438,7 @@ Verificamos con nslookup la zona directa.::
 	Server:		192.168.0.21
 	Address:	192.168.0.21#53
 
-	Name:	scmdebian.rapidpago.local
+	Name:	scmdebian.dominio.local
 	Address: 192.168.1.66
 
 
@@ -448,13 +448,13 @@ Verificamos con nslookup la zona reversa.::
 	Server:		192.168.0.21
 	Address:	192.168.0.21#53
 
-	66.1.168.192.in-addr.arpa	name = scmdebian.rapidpago.local.
+	66.1.168.192.in-addr.arpa	name = scmdebian.dominio.local.
 
 Verificamos con dig la zona directa.::
 
-	# dig scmdebian.rapidpago.local
+	# dig scmdebian.dominio.local
 
-	; <<>> DiG 9.9.4-RedHat-9.9.4-61.el7_5.1 <<>> scmdebian.rapidpago.local
+	; <<>> DiG 9.9.4-RedHat-9.9.4-61.el7_5.1 <<>> scmdebian.dominio.local
 	;; global options: +cmd
 	;; Got answer:
 	;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 51844
@@ -463,18 +463,18 @@ Verificamos con dig la zona directa.::
 	;; OPT PSEUDOSECTION:
 	; EDNS: version: 0, flags:; udp: 4096
 	;; QUESTION SECTION:
-	;scmdebian.rapidpago.local.	IN	A
+	;scmdebian.dominio.local.	IN	A
 
 	;; ANSWER SECTION:
-	scmdebian.rapidpago.local. 604800 IN	A	192.168.1.66
+	scmdebian.dominio.local. 604800 IN	A	192.168.1.66
 
 	;; AUTHORITY SECTION:
-	rapidpago.local.	604800	IN	NS	ns2.rapidpago.local.
-	rapidpago.local.	604800	IN	NS	ns1.rapidpago.local.
+	dominio.local.	604800	IN	NS	ns2.dominio.local.
+	dominio.local.	604800	IN	NS	ns1.dominio.local.
 
 	;; ADDITIONAL SECTION:
-	ns1.rapidpago.local.	604800	IN	A	192.168.1.210
-	ns2.rapidpago.local.	604800	IN	A	192.168.0.21
+	ns1.dominio.local.	604800	IN	A	192.168.1.210
+	ns2.dominio.local.	604800	IN	A	192.168.0.21
 
 	;; Query time: 1 msec
 	;; SERVER: 192.168.0.21#53(192.168.0.21)
@@ -497,15 +497,15 @@ Verificamos con dig la zona reversa.::
 	;66.1.168.192.in-addr.arpa.	IN	PTR
 
 	;; ANSWER SECTION:
-	66.1.168.192.in-addr.arpa. 604800 IN	PTR	scmdebian.rapidpago.local.
+	66.1.168.192.in-addr.arpa. 604800 IN	PTR	scmdebian.dominio.local.
 
 	;; AUTHORITY SECTION:
-	168.192.in-addr.arpa.	604800	IN	NS	ns1.rapidpago.local.
-	168.192.in-addr.arpa.	604800	IN	NS	ns2.rapidpago.local.
+	168.192.in-addr.arpa.	604800	IN	NS	ns1.dominio.local.
+	168.192.in-addr.arpa.	604800	IN	NS	ns2.dominio.local.
 
 	;; ADDITIONAL SECTION:
-	ns1.rapidpago.local.	604800	IN	A	192.168.1.210
-	ns2.rapidpago.local.	604800	IN	A	192.168.0.21
+	ns1.dominio.local.	604800	IN	A	192.168.1.210
+	ns2.dominio.local.	604800	IN	A	192.168.0.21
 
 	;; Query time: 1 msec
 	;; SERVER: 192.168.0.21#53(192.168.0.21)
@@ -516,13 +516,13 @@ Verificamos con dig la zona reversa.::
 Culminamos con ping para verificar, claro si no responde no significa qeu DNS este mal, solo es para confirmar que el equipo esta en linea.::
 
 	# ping -c4 scmdebian
-	PING scmdebian.rapidpago.local (192.168.1.66) 56(84) bytes of data.
-	64 bytes from scmdebian.rapidpago.local (192.168.1.66): icmp_seq=1 ttl=64 time=0.157 ms
-	64 bytes from scmdebian.rapidpago.local (192.168.1.66): icmp_seq=2 ttl=64 time=0.115 ms
-	64 bytes from scmdebian.rapidpago.local (192.168.1.66): icmp_seq=3 ttl=64 time=0.186 ms
-	64 bytes from scmdebian.rapidpago.local (192.168.1.66): icmp_seq=4 ttl=64 time=0.138 ms
+	PING scmdebian.dominio.local (192.168.1.66) 56(84) bytes of data.
+	64 bytes from scmdebian.dominio.local (192.168.1.66): icmp_seq=1 ttl=64 time=0.157 ms
+	64 bytes from scmdebian.dominio.local (192.168.1.66): icmp_seq=2 ttl=64 time=0.115 ms
+	64 bytes from scmdebian.dominio.local (192.168.1.66): icmp_seq=3 ttl=64 time=0.186 ms
+	64 bytes from scmdebian.dominio.local (192.168.1.66): icmp_seq=4 ttl=64 time=0.138 ms
 
-	--- scmdebian.rapidpago.local ping statistics ---
+	--- scmdebian.dominio.local ping statistics ---
 	4 packets transmitted, 4 received, 0% packet loss, time 3002ms
 	rtt min/avg/max/mdev = 0.115/0.149/0.186/0.026 ms
 
