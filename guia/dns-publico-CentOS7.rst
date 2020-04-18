@@ -109,7 +109,7 @@ Todo el archivo named.conf queda de esta forma.::
 	#include "/etc/named/named.conf.local";
 	include "/etc/named/named.conf.public";
 
-Creamos el archivo "/etc/named/named.conf.public" donde estarán las zonas publicas, es decir, el archivo de configuración que indicara cuales son los archivos de zona para los dominios adquiridos en la NIC.
+Creamos el archivo "/etc/named/named.conf.public" donde estarán las zonas publicas, es decir, el archivo de configuración que indicara cuales son los archivos de zona para los dominios adquiridos en la NIC.::
 
 	# vi /etc/named/named.conf.public
 		zone "cursoinfraestructura.com.ve" IN {
@@ -191,6 +191,8 @@ Aqui ya podemos ir haciendo pruebas.::
 
 También es bueno probar con esta herramienta que le ayuda a entonar los valores de su DNS http://www.intodns.com/ , si lo corren tal cual como esta esta configuración podrán ver que los warning se trata por convención que debe existir otro DNS autoritativo.
 
+NOTA: las imagenes son de una consulta de mi dominio candoit, porque me dio flojera tomar las imagenes actuales de cursoinfraestructura.com.ve
+
 .. figure:: ../images/intodns-1.png
 .. figure:: ../images/intodns-2.png
 .. figure:: ../images/intodns-3.png
@@ -236,7 +238,7 @@ Empezamos con el archivo principal.::
 		include "/etc/named/named.conf.public"
 
 
-Creamos el archivo "/etc/named/named.conf.public" donde estarán las zonas publicas, es decir, el archivo de configuración que indicara cuales son los archivos de zona para los dominios adquiridos en la NIC.
+Creamos el archivo "/etc/named/named.conf.public" donde estarán las zonas publicas, es decir, el archivo de configuración que indicara cuales son los archivos de zona para los dominios adquiridos en la NIC.::
 
 	# vi /etc/named/named.conf.public
 		masters master {
