@@ -222,7 +222,7 @@ Instalamos los paquetes.::
 Más información, consulte la documentación /usr/share/doc/bind9/ , el man de named.conf (5) named (8).
 
 
-Empezamos con el archivo principal.::
+Empezamos con el archivo principal. Este debe quedar igual que el servidor master::
 
 	# vi named.conf
 		...
