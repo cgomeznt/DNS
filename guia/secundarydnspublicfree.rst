@@ -54,3 +54,9 @@ Uno de estos Nombres tambien debemos agregarlo en la NIC.ve como servidor DNS Au
  
  
  Listo ya con esto nuestra Zona fue transferida y buddns es nuestro DNS Secundary
+
+ 
+ Y cuando realicen la consulta por nuestro dominio este sera el TRACE.
+ 
+  .. figure:: ../images/buddns/10.png
+ 
