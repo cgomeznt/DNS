@@ -32,9 +32,9 @@ Ahora nos vamos a esta secciòn.
 
 .. figure:: ../images/buddns/07.png
 
- Aqui nos daran todo el detalle del resto de la configuraciòn.
+Aqui nos daran todo el detalle del resto de la configuraciòn.
  
- .. figure:: ../images/buddns/08.png
+.. figure:: ../images/buddns/08.png
  
  1.- Se debe seleccional almenos tres (3) servidores DNS, ellos nos colocan los nombres largos por seguridad, pero en la Nic no nos permite ingresar tantos caracteres, por lo tanto debemos hacer que muestre los nombres cortos
  Al tener los nombres cortos los copiamos y los agregamos en nuestro servidor DNS Publico en el archivo de Zona.::
@@ -47,16 +47,17 @@ Ahora nos vamos a esta secciòn.
  
 Uno de estos Nombres tambien debemos agregarlo en la NIC.ve como servidor DNS Autoritativo. Esto con el fin que la NIC este enterado que este es nuestro DNS Secundario.
  
+.. figure:: ../images/buddns/07-nic.png
 
- Ya con las configuraciones realizados nos podemos ir al BuddyBoard y realizar el test.
+Ya con las configuraciones realizados nos podemos ir al BuddyBoard y realizar el test.
  
-  .. figure:: ../images/buddns/09.png
+.. figure:: ../images/buddns/09.png
  
  
- Listo ya con esto nuestra Zona fue transferida y buddns es nuestro DNS Secundary
+Listo ya con esto nuestra Zona fue transferida y buddns es nuestro DNS Secundary
 
  
- Y cuando realicen la consulta por nuestro dominio este sera el TRACE.
+Y cuando realicen la consulta por nuestro dominio este sera el TRACE.
  
-  .. figure:: ../images/buddns/10.png
+.. figure:: ../images/buddns/10.png
  
