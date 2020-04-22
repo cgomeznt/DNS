@@ -140,6 +140,7 @@ Creamos el archivo que tiene la configuración de la zona publicado en la NIC.::
 		ns1          IN   A      190.36.229.66	;Esta es la IP que esta registrada en la NIC
 		mail1        IN   A      190.36.229.66	;Esta es la IP que esta registrada en la NIC
 		myboss       IN   A      190.36.229.66	;Esta es la IP que esta registrada en la NIC
+		@            IN   TXT    "v=spf1 a:mail1.cursoinfraestructura.com.ve ip4:190.36.229.66/23 -all"
 		www          IN   CNAME  cursoinfraestructura.com.ve.
 		mail         IN   CNAME  mail1.cursoinfraestructura.com.ve.
 

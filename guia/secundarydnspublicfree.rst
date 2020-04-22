@@ -1,4 +1,4 @@
-Seconday DNS public Free
+Secundary DNS public Free
 =========================
 
 Servidor secundario o esclavo: cuando la información de un servidor de nombres no procede de los archivos de zona propios, sino que son de segunda o de tercera mano, este servidor se convierte en secundario o esclavo para esta información. Esta situación se produce cuando un servidor no puede resolver una petición con su propia base de datos y ha de recurrir a la información disponible en otro servidor de nombres (resolución recursiva). Estos datos del DNS se guardan de forma temporal en un almacenamiento local (caching) y se proporcionan en caso de peticiones futuras. Como es posible que las entradas en el propio archivo de zona hayan cambiado en el ínterin, la información proporcionada por servidores secundarios no se considera segura
