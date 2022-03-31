@@ -113,6 +113,10 @@ Quedaría de esta forma el named.conf::
 	include "/etc/named.rfc1912.zones";
 	include "/etc/named.root.key";
 
+Verificamos el archivo de configuración::
+
+	# named-checkconf
+
 
 Activamos el log para ver todo::
 

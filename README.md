@@ -10,7 +10,6 @@
 * [Activar los LOGs para BIND9](guia/activarlogs.rst)
 * [Ver y limpiar el Cache de Bind9 DNS](guia/ver_limpiar_cache.rst)
 * [DNSSEC forwarder mode fails with SERVFAIL](guia/DNSSEC_SRVFAIL.rst)
-
-
+* [DNS Cache-Forward-local-Dinamico, Squid, Sarg, DHCP](guia/DNS-Squid-Sarg-DHCP.rst)
 
 
