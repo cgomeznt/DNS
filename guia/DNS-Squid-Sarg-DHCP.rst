@@ -325,7 +325,7 @@ el archivo /etc/bind/rndc.key. Contine la llave, Si el DHCP server y DNS no está
 	vi isc-dhcp-server 
 	INTERFACES="eth0"
 
-Vamos al directorio:
+Vamos al directorio::
 
 	cd /etc/dhcp
 	vi dhcpd.conf
