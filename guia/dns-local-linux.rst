@@ -51,7 +51,7 @@ verificar fecha y hora.::
 #y tambien ping hacia nombres de dominio como debian.org, yahoo.com 
 #como no tenemos DNS los pines con los nombres de dominio no van ha responder
 
-Instalamos los paqutes::
+Instalamos los paquetes::
 
 	apt-get install bind9 bind9utils bind9-doc dnsutils
 
