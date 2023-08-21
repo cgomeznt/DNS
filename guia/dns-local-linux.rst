@@ -121,3 +121,9 @@ Instalamos los paquetes::
 
 #Configurar en las estaciones de trabajo los DNS de la eth1 y hacer pruebas de ping hacia
 #las entradas que creamos, como lo son; server, router, gateway, proxy
+
+Verificamos el archivo de configuración::
+
+	# named-checkzone home.lan /etc/bind/db.home.lan
+	zone candoit.com.ve/IN: loaded serial 1
+	OK
