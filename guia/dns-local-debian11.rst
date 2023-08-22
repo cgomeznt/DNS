@@ -45,7 +45,7 @@ Instalamos los paquetes::
 
 
 	
-**Opcional** Sobre el bloque de opciones existente, cree un nuevo bloque de ACL llamado "trusted"". Aquí es donde definiremos la lista de clientes a los que permitiremos consultas de DNS recursivas (es decir, sus servidores que están en el mismo centro de datos que nuestro DNS).:
+**Opcional** Sobre el bloque de opciones existente, cree un nuevo bloque de ACL llamado "trusted"". Aquí es donde definiremos la lista de clientes a los que permitiremos consultas de DNS recursivas (es decir, sus servidores que están en el mismo centro de datos que nuestro DNS)::
 
 	acl "trusted" {
 			192.168.0.210;    # ns1 - can be set to localhost
@@ -53,20 +53,20 @@ Instalamos los paquetes::
 			192.168.0.66;  # host1
 	};
 
-Ahora que tenemos nuestra lista de clientes DNS confiables, editar el bloque de opciones. Agregue la dirección IP privada de ns1 a la directiva de puerto de escucha 53, y comente la línea de escucha en v6.:
+**Opcional**  Ahora que tenemos nuestra lista de clientes DNS confiables, editar el bloque de opciones. Agregue la dirección IP privada de ns1 a la directiva de puerto de escucha 53, y comente la línea de escucha en v6::
 
 	options {
 			listen-on port 53 { 127.0.0.1; 192.168.0.5; };
 			// listen-on-v6 port 53 { ::1; };
 	[...]
 
-Cambie la directiva de transferencia permitida de "none" a la dirección IP privada del ns2. Además, cambie la directiva allow-query de "localhost" a "trusted":
+**Opcional** Cambie la directiva de transferencia permitida de "none" a la dirección IP privada del ns2. Además, cambie la directiva allow-query de "localhost" a "trusted"::
 
         allow-transfer { 192.168.0.21; };       # disable zone transfers by default
         allow-query { trusted; };               # allows queries from "trusted" clients
 [...]
 
-Configurar un el forwarders y cache::
+**Opcional** Configurar un el forwarders y cache::
 
 		forwarders {
 			// OpenDNS servers
@@ -75,6 +75,13 @@ Configurar un el forwarders y cache::
 			// ADSL router
 			192.168.1.1;
 		};
+
+Lo que si debe editar es::
+
+			dnssec-enable no;
+			dnssec-validation no;
+
+			//listen-on-v6 { any; };
 
 
 El archivo named.conf.options quedara así.::
@@ -131,7 +138,7 @@ El archivo named.conf.options quedara así.::
 			dnssec-enable no;
 			dnssec-validation no;
 
-			listen-on-v6 { any; };
+			//listen-on-v6 { any; };
 	};
 
 
