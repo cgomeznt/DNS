@@ -2,6 +2,7 @@
 
 * [Que es un DNS | Como Funciona?](guia/queesunDNS.rst)
 * [DNS Local en GNU/Linux](guia/dns-local-linux.rst)
+* [DNS Local en Debian 11](guia/dns-local-debian11.rst)
 * [DNS Publico en GNU/Linux](guia/dns-publico-linux.rst)
 * [DNS CACHE y FORWARD GNU/Linux](guia/dns-cache-forward.rst)
 * [DNS Publico en CentOS7](guia/dns-publico-CentOS7.rst)
