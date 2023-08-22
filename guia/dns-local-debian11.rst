@@ -19,7 +19,7 @@ configurar la red::
 	address 192.168.0.5
 	netmask 255.255.255.0
 
-La ip del servidor DNS en este ejemplo es:
+La ip del servidor DNS en este ejemplo es::
 
 	192.168.0.5
 	
@@ -141,7 +141,9 @@ El archivo named.conf.options quedara así.::
 			//listen-on-v6 { any; };
 	};
 
-
+Verificamos el funcionamiento con::
+	
+	# named-checkconf
 	
 Reiniciamos::
 
@@ -156,12 +158,12 @@ Aseguramos que en el archivo host no tengamos otro DNS::
 	nameserver 192.168.0.5
 
 	
-Para activar más detalle en los LOGs:
+Para activar más detalle en los LOGs::
 
 	# rndc querylog
 	# tail -f /var/log/syslog
 
-Si lo queremos apagar 
+Si lo queremos apagar ::
 
 	# rndc querylog
 
@@ -235,18 +237,17 @@ Ahora creamos el archivo de Zona, con los registros necesarios::
 	router          A       192.168.1.1     ; router ADSL
 	gateway         CNAME   router
 
-
-Reiniciamos::
-
-	systemctl restart bind9
-
+	
 Verificamos el archivo de configuración::
 
 	# named-checkzone e-deus.online /etc/bind/db.e-deus.online
 	zone e-deus.online/IN: loaded serial 2023111104
 	OK
 
-	
+Reiniciamos::
+
+	systemctl restart bind9
+
 Realizamod pruebas con el dig::
 
 	# dig @192.168.0.5 e-deus.online SOA +noall +answer
