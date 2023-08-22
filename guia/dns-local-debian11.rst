@@ -16,10 +16,14 @@ configurar la red::
 	allow-hotplug eth1
 	auto eth1 
 	iface eth1 inet static
-	address 192.168.0.1
+	address 192.168.0.5
 	netmask 255.255.255.0
 
-verificar fecha y hora.::
+La ip del servidor DNS en este ejemplo es:
+
+	192.168.0.5
+	
+verificar  fecha y hora, debe estar bien.::
 
 	date
 
@@ -40,18 +44,98 @@ Instalamos los paquetes::
 	apt-get install bind9 bind9utils bind9-doc dnsutils
 
 
-Configurar un el forwarders 
-------------------------------
-Editar el archivo named.conf.options.::
+	
+**Opcional** Sobre el bloque de opciones existente, cree un nuevo bloque de ACL llamado "trusted"". Aquí es donde definiremos la lista de clientes a los que permitiremos consultas de DNS recursivas (es decir, sus servidores que están en el mismo centro de datos que nuestro DNS).:
 
-	vi /etc/bind/named.conf.options
-	#agregar estas lineas
-	forwarders {
-		#DNS de cantv.net
-		200.44.32.12;
-		200.11.248.12;
+	acl "trusted" {
+			192.168.0.210;    # ns1 - can be set to localhost
+			192.168.0.21;    # ns2
+			192.168.0.66;  # host1
 	};
 
+Ahora que tenemos nuestra lista de clientes DNS confiables, editar el bloque de opciones. Agregue la dirección IP privada de ns1 a la directiva de puerto de escucha 53, y comente la línea de escucha en v6.:
+
+	options {
+			listen-on port 53 { 127.0.0.1; 192.168.0.5; };
+			// listen-on-v6 port 53 { ::1; };
+	[...]
+
+Cambie la directiva de transferencia permitida de "none" a la dirección IP privada del ns2. Además, cambie la directiva allow-query de "localhost" a "trusted":
+
+        allow-transfer { 192.168.0.21; };       # disable zone transfers by default
+        allow-query { trusted; };               # allows queries from "trusted" clients
+[...]
+
+Configurar un el forwarders y cache::
+
+		forwarders {
+			// OpenDNS servers
+		    208.67.222.222;
+			208.67.220.220;
+			// ADSL router
+			192.168.1.1;
+		};
+
+
+El archivo named.conf.options quedara así.::
+
+	vi /etc/bind/named.conf.options
+	acl "trusted" {
+			192.168.0.210;    # ns1 - can be set to localhost
+			192.168.0.21;    # ns2
+			192.168.0.66;  # host1
+	};
+	options {
+			directory "/var/cache/bind";
+
+			// If there is a firewall between you and nameservers you want
+			// to talk to, you may need to fix the firewall to allow multiple
+			// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+			// If your ISP provided one or more IP addresses for stable
+			// nameservers, you probably want to use them as forwarders.
+			// Uncomment the following block, and insert the addresses replacing
+			// the all-0's placeholder.
+
+			// forwarders {
+			//      0.0.0.0;
+			// };
+
+			//========================================================================
+			// If BIND logs error messages about the root key being expired,
+			// you will need to update your keys.  See https://www.isc.org/bind-keys
+			//========================================================================
+			//agregar estas lineas
+			//forwarders {
+			//      #DNS de cantv.net
+			//      200.44.32.12;
+			//      200.11.248.12;
+			//};
+			forwarders {
+				 // OpenDNS servers
+				 208.67.222.222;
+				 208.67.220.220;
+				 // ADSL router
+				 192.168.1.1;
+			};
+
+			// Security options
+			listen-on port 53 { 127.0.0.1; 192.168.0.5; };
+			allow-query { 127.0.0.1; 192.168.0.0/24; };
+			allow-recursion { 127.0.0.1; 192.168.0.0/24; };
+			allow-transfer { none; };
+
+			auth-nxdomain no;    # conform to RFC1035
+			// listen-on-v6 { any; };
+
+			dnssec-enable no;
+			dnssec-validation no;
+
+			listen-on-v6 { any; };
+	};
+
+
+	
 Reiniciamos::
 
 	systemctl restart bind9
