@@ -78,7 +78,7 @@ Instalamos los paquetes::
 
 Lo que si debe editar es::
 
-			dnssec-enable no;
+			//dnssec-enable no; Deprecado
 			dnssec-validation no;
 
 			//listen-on-v6 { any; };
@@ -135,7 +135,7 @@ El archivo named.conf.options quedara así.::
 			auth-nxdomain no;    # conform to RFC1035
 			// listen-on-v6 { any; };
 
-			dnssec-enable no;
+			//dnssec-enable no; Deprecado
 			dnssec-validation no;
 
 			//listen-on-v6 { any; };
