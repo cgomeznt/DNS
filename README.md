@@ -10,8 +10,9 @@
 * [Configurar BIND en una Red Privada en Centos 7](guia/dns-local-centos7.rst)
 * [Configurar BIND en una Red Privada con sub-dominio en Centos 7](guia/dns-local-subdominio-centos7.rst)
 * [Activar los LOGs para BIND9](guia/activarlogs.rst)
+* [Activar los LOGs modo DEBUG](guia/logging_en_modo_DEBUG.rst)
 * [Ver y limpiar el Cache de Bind9 DNS](guia/ver_limpiar_cache.rst)
 * [DNSSEC forwarder mode fails with SERVFAIL](guia/DNSSEC_SRVFAIL.rst)
 * [DNS Cache-Forward-local-Dinamico, Squid, Sarg, DHCP](guia/DNS-Squid-Sarg-DHCP.rst)
 
-
+logging_en_modo_DEBUG.rst
