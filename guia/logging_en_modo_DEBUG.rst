@@ -1,6 +1,11 @@
 Configurar logging en modo DEBUG en BIND (named)
 ===============================================
 
+Comandos para activar el log::
+
+   rndc querylog    # Alterna entre ON/OFF
+   rndc status | grep query
+
 1. Configurar logging en modo DEBUG
 ----------------------------------
 
